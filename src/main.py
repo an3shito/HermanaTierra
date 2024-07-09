@@ -1,5 +1,6 @@
+"""             Importación de Módulos           """
 import customtkinter
-from inventarios.inventario_utiles_oficina import InventarioUtilesOficina
+from inventarios.panel_inventarios import PanelInventario
 
 class MainApp(customtkinter.CTk):
     """ Representa la vista principal """
@@ -9,7 +10,7 @@ class MainApp(customtkinter.CTk):
         
         self.title("Hermana Tierra")
         self.resizable(0, 0)
-        self.config(bg="#1b676b")
+        # self.config(bg="#1b676b")
         
         # Dimensiones iniciales de la ventana
         self.ancho_ventana = 320
@@ -17,7 +18,7 @@ class MainApp(customtkinter.CTk):
         self._configurar_geometria(self.ancho_ventana, self.altura_ventana)
         
         # Colocar frame que irá en el centro para visualizar los botones de opciones
-        self.frame = customtkinter.CTkFrame(self, fg_color="#519548")
+        self.frame = customtkinter.CTkFrame(self) # , fg_color="#519548"
         self.frame.grid(column=0, row=0, sticky="nsew", padx=50, pady=50)
         
         # Configurar el grid dentro del frame
@@ -41,7 +42,7 @@ class MainApp(customtkinter.CTk):
         self.rowconfigure(0, weight=1)
         
     def _configurar_geometria(self, ancho, altura):
-        """Configura la geometría de la ventana y la centra en la pantalla."""
+        """ Configura la geometría de la ventana y la centra en la pantalla."""
         ancho_pantalla = self.winfo_screenwidth()
         altura_pantalla = self.winfo_screenheight()
         posicion_x = (ancho_pantalla // 2) - (ancho // 2)
@@ -49,19 +50,25 @@ class MainApp(customtkinter.CTk):
         self.geometry(f'{ancho}x{altura}+{posicion_x}+{posicion_y}')
     
     def mostrar_inventario(self):
+        
+        """ Funsión que muestra el panel del inventario """
+        
         # Ocultar los botones principales y el frame
         self.frame.grid_forget()
         
         # Cambiar el tamaño de la ventana
-        self.ancho_ventana_inventario = 640
-        self.altura_ventana_inventario = 480
+        
+        self.ancho_ventana_inventario = 840
+        self.altura_ventana_inventario = 580
         self._configurar_geometria(self.ancho_ventana_inventario, self.altura_ventana_inventario)
         
         # Crear y mostrar la vista de inventario
-        self.inventario_view = InventarioUtilesOficina(self, self.mostrar_principal)
+        self.inventario_view = PanelInventario(self, self.mostrar_principal)
         self.inventario_view.grid(column=0, row=0, sticky="nsew")
     
     def mostrar_principal(self):
+        
+        """ Funsión que muestra el panel principal """
         # Ocultar la vista de inventario
         self.inventario_view.grid_forget()
         
