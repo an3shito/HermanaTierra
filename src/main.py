@@ -2,6 +2,7 @@
 
 import customtkinter
 from inventarios.panel_inventarios import PanelInventario
+from bodega.panel_bodega import PanelBodega
 
 class MainApp(customtkinter.CTk):
     
@@ -18,6 +19,8 @@ class MainApp(customtkinter.CTk):
         self.altura_ventana = 400
         self.ancho_ventana_inventario = 840
         self.altura_ventana_inventario = 580
+        self.ancho_ventana_bodega = 840
+        self.altura_ventana_bodega = 580
                 
         self._configurar_geometria(self.ancho_ventana, self.altura_ventana)
         
@@ -31,13 +34,15 @@ class MainApp(customtkinter.CTk):
             self.frame.rowconfigure(i, weight=1)
         
         # Crear los botones y posicionarlos en el grid del frame
-        self.boton_inventario = customtkinter.CTkButton(self.frame, text="Inventarios", width=120, height=32, command=self.mostrar_inventario)
+        self.boton_inventario = customtkinter.CTkButton(self.frame, text="Inventarios", 
+                                                        width=120, height=32, command=self.mostrar_inventario)
         self.boton_inventario.grid(column=0, row=1, padx=10, pady=10)
         
-        self.boton_bodega = customtkinter.CTkButton(self.frame, text="Bodega", width=120, height=32)
+        self.boton_bodega = customtkinter.CTkButton(self.frame, text="Bodega", 
+                                                    width=120, height=32, command= self.mostrar_bodega)
         self.boton_bodega.grid(column=0, row=2, padx=10, pady=10)
         
-        self.boton_carro = customtkinter.CTkButton(self.frame, text="Carro", width=120, height=32)
+        self.boton_carro = customtkinter.CTkButton(self.frame, text="Cardex", width=120, height=32)
         self.boton_carro.grid(column=0, row=3, padx=10, pady=10)
         
         self.columnconfigure(0, weight=1)
@@ -45,10 +50,11 @@ class MainApp(customtkinter.CTk):
         
         # Inicializar inventario_view como None
         self.inventario_view = None
+        self.bodega_view = None
         
     def _configurar_geometria(self, ancho, altura):
         
-        """   Funsión que configura la geometría de la ventana y la centra en la pantalla.   """
+        """   Función que configura la geometría de la ventana y la centra en la pantalla.   """
         
         ancho_pantalla = self.winfo_screenwidth()
         altura_pantalla = self.winfo_screenheight()
@@ -58,7 +64,7 @@ class MainApp(customtkinter.CTk):
     
     def mostrar_inventario(self):
         
-        """ Funsión que muestra el panel del inventario """
+        """ Función que muestra el panel del inventario """
         
         # Ocultar los botones principales y el frame
         self.frame.grid_forget()
@@ -70,13 +76,33 @@ class MainApp(customtkinter.CTk):
         self.inventario_view = PanelInventario(self, self.mostrar_principal)
         self.inventario_view.grid(column=0, row=0, sticky="nsew")
     
+    def mostrar_bodega(self):
+        """    Función que mostrará la ventana de bodega   """
+        
+        # Ocultar los botones principales y el frame
+        self.frame.grid_forget()
+        
+        # Cambiar el tamaño de la ventana
+        self._configurar_geometria(self.ancho_ventana_bodega, self.altura_ventana_bodega)
+        
+        # Crear y mostrar la vista de bodega
+        self.bodega_view = PanelBodega(self, self.mostrar_principal)
+        self.bodega_view.grid(column=0, row=0, sticky="nsew")
+         
+            
     def mostrar_principal(self):
         
-        """ Funsión que muestra el panel principal """
+        """ Función que muestra el panel principal """
         
-        # Ocultar la vista de inventario
+        # Ocultar la vista de inventario o bodega
         if self.inventario_view:
             self.inventario_view.grid_forget()
+            self.inventario_view.destroy()  
+            self.inventario_view = None
+        if self.bodega_view:
+            self.bodega_view.grid_forget()
+            self.bodega_view.destroy()  
+            self.bodega_view = None
         
         # Cambiar el tamaño de la ventana de nuevo al tamaño original
         self._configurar_geometria(self.ancho_ventana, self.altura_ventana)
