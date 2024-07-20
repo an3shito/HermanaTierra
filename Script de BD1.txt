@@ -1,0 +1,56 @@
+create table Tarjeta
+(
+	No_hoja int,
+	Niv_Min int, 
+	Niv_Max int, 
+	Responsable varchar(Max),
+	Articulo varchar(Max),
+	Especificacion varchar(Max),
+	Descripcion varchar(Max),
+	Fecha date,
+	No_Ref varchar(100),
+	Rem_Des varchar(100), 
+	Cant_Entrada int,
+	Precio_U_Ent float,
+	Total_Entrada float,
+	Fecha_Ven date,
+	Lote varchar(15),
+	Cant_Salida int,
+	Precio_Salida float,
+	Ajuste varchar(10),
+	Cantidad_Saldo int, 
+	Precio_Saldo float,
+	Observacion varchar(max)
+)
+
+CREATE TABLE Tarjeta (
+    TarjetaID INT IDENTITY(1,1) PRIMARY KEY,
+    No_Hoja INT,
+    Responsable VARCHAR(255),
+    Articulo VARCHAR(255),
+    Especificacion VARCHAR(255),
+    Descripcion TEXT,
+    Fecha DATE,
+    No_Ref VARCHAR(100),
+    Rem_Des VARCHAR(100),
+    Cant_Entrada INT,
+    Precio_U_Ent DECIMAL(10, 2), -- Utilizamos DECIMAL para representar precios con precisión
+    Total_Entrada DECIMAL(10, 2),
+    Fecha_Ven DATE,
+    Lote VARCHAR(15),
+    Cant_Salida INT,
+    Precio_Salida DECIMAL(10, 2),
+    Ajuste VARCHAR(10),
+    Cantidad_Saldo INT,
+    Precio_Saldo DECIMAL(10, 2),
+    Observacion TEXT
+);
+
+CREATE TABLE PrecioHistorico (
+    PrecioHistoricoID INT IDENTITY(1,1)  PRIMARY KEY,
+    TarjetaID INT,
+    FechaInicio DATE,
+    FechaFin DATE,
+    Precio DECIMAL(10, 2),
+    FOREIGN KEY (TarjetaID) REFERENCES Tarjeta(TarjetaID)
+);

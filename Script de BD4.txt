@@ -1,0 +1,65 @@
+-- Crear la base de datos
+CREATE DATABASE InventarioHermanaTierra;
+
+-- Usar la base de datos recién creada
+USE InventarioHermanaTierra;
+
+-- Crear la tabla de Proveedores
+CREATE TABLE Proveedores (
+    ProveedorID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Contacto VARCHAR(100),
+    Telefono VARCHAR(20)
+);
+
+-- Crear la tabla para Condición
+CREATE TABLE Condicion (
+    CondicionID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+-- Insertar valores iniciales en la tabla de Condición
+INSERT INTO Condicion (Nombre) VALUES
+('Nuevo'),
+('Usado'),
+('Reacondicionado');
+
+-- Crear la tabla para Ubicación o Bodega
+CREATE TABLE Ubicacion (
+    UbicacionID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+-- Insertar valores iniciales en la tabla de Ubicación
+INSERT INTO Ubicacion (Nombre) VALUES
+('Principal'),
+('Secundaria');
+
+-- Crear la tabla para Tipo
+CREATE TABLE Tipo (
+    TipoID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+-- Insertar valores iniciales en la tabla de Tipo
+INSERT INTO Tipo (Nombre) VALUES
+('Donado'),
+('Adquirido');
+
+-- Crear la tabla de Productos
+CREATE TABLE Productos (
+    ProductoID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Descripcion TEXT,
+    Cantidad INT NOT NULL,
+    ProveedorID INT,
+	CondicionID INT,
+	UbicacionID INT,
+	TipoID INT,
+    Fecha_Adquisicion DATE,
+	Fecha_Vencimiento DATE,
+    FOREIGN KEY (ProveedorID) REFERENCES Proveedores(ProveedorID),
+	FOREIGN KEY (CondicionID) REFERENCES Condicion(CondicionID),
+	FOREIGN KEY (UbicacionID) REFERENCES Ubicacion(UbicacionID),
+	FOREIGN KEY (TipoID) REFERENCES Tipo(TipoID),
+);
