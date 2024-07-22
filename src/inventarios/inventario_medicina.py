@@ -1,10 +1,9 @@
 """          Importación de Módulos      """
 import customtkinter
 
-class InventarioUtilesOficina(customtkinter.CTkFrame):
+class InventarioMedicinas(customtkinter.CTkFrame):
     
-    """   Representa la vista del inventario de útiles de oficina """
-    
+    """ Clase que refresenta el formulario de medicinas """
     def __init__(self, master):
         
         super().__init__(master, fg_color="#fff5e1")
@@ -17,7 +16,7 @@ class InventarioUtilesOficina(customtkinter.CTkFrame):
             self.rowconfigure(i, weight=1)
         
         # Crear los elementos de la vista de inventario
-        self.label_inventario = customtkinter.CTkLabel(self, text="Inventario de Útiles de Oficina", 
+        self.label_inventario = customtkinter.CTkLabel(self, text="Inventario de Medicinas", 
                                                        text_color="#3b3b3b", font=("Arial", 16))
         self.label_inventario.grid(column=1, row=0, columnspan=2, padx=10, pady=10, sticky="w")
         
