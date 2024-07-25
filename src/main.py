@@ -2,7 +2,9 @@
 
 import customtkinter
 from inventarios.panel_inventarios import PanelInventario
+from inventarios.dashboard import DashBoardPrincipal
 from bodega.panel_bodega import PanelBodega
+
 
 class MainApp(customtkinter.CTk):
     
@@ -21,6 +23,10 @@ class MainApp(customtkinter.CTk):
         self.altura_ventana_inventario = 580
         self.ancho_ventana_bodega = 840
         self.altura_ventana_bodega = 580
+        
+        # Dimensiones para el frame del dashboard 
+        self.ancho_dashboard = 1350
+        self.altura_dashboard = 620
                 
         self._configurar_geometria(self.ancho_ventana, self.altura_ventana)
         
@@ -38,8 +44,8 @@ class MainApp(customtkinter.CTk):
                                                         width=120, height=32, command=self.mostrar_inventario)
         self.boton_inventario.grid(column=0, row=1, padx=10, pady=10)
         
-        self.boton_bodega = customtkinter.CTkButton(self.frame, text="Bodega", 
-                                                    width=120, height=32, command= self.mostrar_bodega)
+        self.boton_bodega = customtkinter.CTkButton(self.frame, text="Ingresar", 
+                                                    width=120, height=32, command= self.mostrar_dashboard)
         self.boton_bodega.grid(column=0, row=2, padx=10, pady=10)
         
         self.boton_carro = customtkinter.CTkButton(self.frame, text="Cardex", width=120, height=32)
@@ -51,6 +57,7 @@ class MainApp(customtkinter.CTk):
         # Inicializar inventario_view como None
         self.inventario_view = None
         self.bodega_view = None
+        self.dashboard_view = None
         
     def _configurar_geometria(self, ancho, altura):
         
@@ -88,7 +95,20 @@ class MainApp(customtkinter.CTk):
         # Crear y mostrar la vista de bodega
         self.bodega_view = PanelBodega(self, self.mostrar_principal)
         self.bodega_view.grid(column=0, row=0, sticky="nsew")
-         
+    
+    def mostrar_dashboard(self):
+        """ Función que mostrará la ventana de bodega """
+    
+        # Ocultar los botones principales y el frame
+        self.frame.grid_forget()
+    
+        # Cambiar el tamaño de la ventana
+        self._configurar_geometria(self.ancho_dashboard, self.altura_dashboard)
+    
+        # Crear y mostrar la vista del dashboard
+        self.dashboard_view = DashBoardPrincipal(self, self.mostrar_principal)
+        self.dashboard_view.grid(column=0, row=0, sticky="nsew")
+     
             
     def mostrar_principal(self):
         
@@ -103,7 +123,11 @@ class MainApp(customtkinter.CTk):
             self.bodega_view.grid_forget()
             self.bodega_view.destroy()  
             self.bodega_view = None
-        
+        if self.dashboard_view:
+            self.dashboard_view.grid_forget()
+            self.dashboard_view.destroy()  
+            self.dashboard_view = None
+            
         # Cambiar el tamaño de la ventana de nuevo al tamaño original
         self._configurar_geometria(self.ancho_ventana, self.altura_ventana)
         

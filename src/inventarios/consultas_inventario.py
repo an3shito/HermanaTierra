@@ -1,20 +1,10 @@
-"""          Importación de Módulos      """
-
 import customtkinter
-from .inventario_utiles_oficina import InventarioUtilesOficina
-from .inventario_medicina import InventarioMedicinas
+from inventarios.inventario_utilesOf import UtilesDeOficinas
 
-class AgregarInventarioVentana(customtkinter.CTkToplevel):
-    
-    """ Ventana para agregar nuevos inventarios """
-    
-    def __init__(self, padre):
-        super().__init__(padre)
-        
-        self.title("Ventana Agregar Inventarios")
-        self.geometry("650x550")
-        
-        # Configurar el grid principal
+class ConsultasInventarios(customtkinter.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+         # Configurar el grid principal
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         
@@ -43,9 +33,8 @@ class AgregarInventarioVentana(customtkinter.CTkToplevel):
             widget.destroy()
         
         if elegir == "1. Inventario de Utiles":
-            inventario_utiles_frame = InventarioUtilesOficina(self.content_frame)
+            inventario_utiles_frame = UtilesDeOficinas(self.content_frame)
             inventario_utiles_frame.grid(row=0, column=0, sticky="nsew")
         elif elegir == "2. Inventario de Servicios":
-            inventario_medicina_frame = InventarioMedicinas(self.content_frame)
-            inventario_medicina_frame.grid(row = 0, column = 0, sticky = "nsew")
-            
+            pass
+
