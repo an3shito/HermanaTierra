@@ -1,0 +1,30 @@
+CREATE TABLE RegistroDiario (
+    RegistroID INT IDENTITY(1,1) PRIMARY KEY,
+    Area_Salud VARCHAR(255),
+    Municipio VARCHAR(255),
+    Distrito VARCHAR(255),
+    Servicio_Salud VARCHAR(255),
+    Nombre_Responsable VARCHAR(255),
+    Cargo VARCHAR(255),
+    Firma VARCHAR(255),
+    No_Hoja INT,
+    Fecha DATE,
+    MedicamentoID INT,
+    Dias_Cant INT,
+    Existencia INT,
+    FOREIGN KEY (MedicamentoID) REFERENCES Medicamento(MedicamentoID)
+);
+
+CREATE TABLE Medicamento (
+    MedicamentoID INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo_Medicamento VARCHAR(255),
+    Nombre_Med VARCHAR(255),
+    Concentracion_Med VARCHAR(255),
+    Presentacion_Med VARCHAR(255),
+    Total_Entregado INT,
+    Total_NoEntregado INT,
+	Med_Cant INT,
+    Entregado INT,
+    No_Entregado INT,
+    Demanda_Real INT
+);

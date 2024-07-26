@@ -1,0 +1,51 @@
+CREATE TABLE Balance (
+    BalanceID INT IDENTITY(1,1) PRIMARY KEY,
+    Saldo_Anterior INT,
+    Entrada_Nivel_Sup INT,
+    Entregado_Usuario INT,
+    No_Entregado INT,
+    Demanda_Real INT,
+    Reajuste CHAR(5),
+    Saldo_Sig_Mes INT,
+    Existe_Bodega INT
+);
+
+CREATE TABLE Requisicion (
+    RequisicionID INT IDENTITY(1,1) PRIMARY KEY,
+    Promedio INT,
+    Existencia_Meses FLOAT,
+    Cant_Max INT,
+    Cant_Solicitar INT,
+    Cant_Recibida INT
+);
+
+CREATE TABLE Suministro (
+    SuministroID INT IDENTITY(1,1) PRIMARY KEY,
+    Area_Salud VARCHAR(MAX),
+    Distrito VARCHAR(MAX),
+    Municipio VARCHAR(MAX),
+    Servicio_Sal VARCHAR(MAX),
+    No_Hoja INT,
+    Codigo_Suministro VARCHAR(10),
+    Fecha DATE,
+    Cantidad INT,
+    Elaborado VARCHAR(MAX),
+    Solicitado VARCHAR(MAX),
+    Autorizado VARCHAR(MAX),
+    VistoBueno VARCHAR(MAX),
+    Despachado VARCHAR(MAX),
+    Recibido VARCHAR(MAX),
+    Fecha_Reci DATE
+);
+
+-- En la tabla Requisicion
+ALTER TABLE Requisicion
+ADD BalanceID INT
+ALTER TABLE Requisicion
+ADD CONSTRAINT FK_Requisicion_Balance FOREIGN KEY (BalanceID) REFERENCES Balance(BalanceID);
+
+-- En la tabla Suministros
+ALTER TABLE Suministro
+ADD BalanceID INT
+ALTER TABLE Suministro
+ADD CONSTRAINT FK_Requisicion_Suministro FOREIGN KEY (BalanceID) REFERENCES Balance(BalanceID);
