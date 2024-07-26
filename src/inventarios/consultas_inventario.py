@@ -1,9 +1,12 @@
+"""          Importación de Módulos      """
+
 import customtkinter
 from inventarios.inventario_utilesOf import UtilesDeOficinas
 
 class ConsultasInventarios(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
+        
          # Configurar el grid principal
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
@@ -20,10 +23,8 @@ class ConsultasInventarios(customtkinter.CTkFrame):
         self.content_frame.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
         self.content_frame.grid_columnconfigure(0, weight=1)
         self.content_frame.grid_rowconfigure(0, weight=1)
-        
 
     def llamar_inventario_opciones(self, elegir):
-        
         """ Función que va a manejar las opciones de elegir los inventarios """
         
         print(f"Option selected: {elegir}")
@@ -37,4 +38,3 @@ class ConsultasInventarios(customtkinter.CTkFrame):
             inventario_utiles_frame.grid(row=0, column=0, sticky="nsew")
         elif elegir == "2. Inventario de Servicios":
             pass
-

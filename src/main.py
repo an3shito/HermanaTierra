@@ -14,7 +14,7 @@ class MainApp(customtkinter.CTk):
         super().__init__()
         
         self.title("Hermana Tierra")
-        self.resizable(0, 0)
+        #self.resizable(0, 0)
         
         # Dimensiones iniciales de la ventana
         self.ancho_ventana = 320
